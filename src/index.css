@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://assets/fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
 
 
 @tailwind base;
@@ -13,16 +13,46 @@
   
   /* Track */
   ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #ffc764;
   }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-  background: #424242;
+  background: #ca5a4c;
   }
 
+
+  @font-face {
+    font-family: 'Harlow Solid';
+    src: url('./assets/fonts/Harlow Solid LET Plain1.0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Lovelo Black';
+    src: url('./assets/fonts/Lovelo Black.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Lovelo Line Bold';
+    src: url('./assets/fonts/Lovelo Line Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Lovelo Line Light';
+    src: url('./assets/fonts/Lovelo Line Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+
 :root {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter',sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -33,6 +63,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
 
 
 
@@ -58,6 +89,11 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.75rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
   }
 
   .dark {
@@ -80,6 +116,10 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
 }
-

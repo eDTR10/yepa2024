@@ -16,41 +16,51 @@ const Page2= lazy(() =>
   wait(1300).then(() => import("./screens/page2.tsx"))
 );
 
+const Login = lazy(() =>
+  wait(1300).then(() => import("./screens/login/Login.tsx"))
+);
 const router = createBrowserRouter([
   {
-    path: "/react-vite-supreme/",
+
+    path: "/yepa2024",
+    element: <Navigate to="/yepa2024/login" />,
+  },
+  {
+    path: "/yepa2024/login",
+    element: <>
+      <Suspense fallback={<Loader />}>
+        <Login />
+      </Suspense>
+    </>,
+  },
+  {
+    path: "/yepa2024/vote",
     element: <App />,
-    
     children: [
       {
-        path: "/react-vite-supreme/", 
-        element: <Navigate to="/react-vite-supreme/page1" />, 
+        path: "/yepa2024/vote",
+        element: <Navigate to="/yepa2024/vote/mrqen" />,
       },
       {
-        path: "/react-vite-supreme/page1",
+        path: "/yepa2024/vote/mrqen",
         element: <>
-        <Suspense fallback={<Loader />}>
-          <Page1 />
-        </Suspense>
-      </>,
+          <Suspense fallback={<Loader />}>
+            <Page1/>
+          </Suspense>
+        </>,
       },
-      {
-        path: "/react-vite-supreme/page2",
-        element: <>
-        <Suspense fallback={<Loader />}>
-          <Page2 />
-        </Suspense>
-      </>,
-      },
-
-
-
-      {
-        path: "*",
-        element: <NotFound />,
-      },
-    ],
+    ]
   },
+  
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+
+
+ 
+
+
 ]);
 
 function wait( time:number) {

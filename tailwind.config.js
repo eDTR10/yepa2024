@@ -8,6 +8,12 @@ module.exports = {
     './src/**/*.{ts,tsx}',
 	],
   theme: {
+    fontFamily: {
+      'harlow': ['Harlow Solid', 'cursive'],
+      'lovelo-black': ['Lovelo Black', 'sans-serif'],
+      'lovelo-bold': ['Lovelo Line Bold', 'sans-serif'],
+      'lovelo-light': ['Lovelo Line Light', 'sans-serif'],
+    },
     container: {
       center: true,
       padding: "2rem",
