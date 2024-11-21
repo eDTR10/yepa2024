@@ -6,7 +6,7 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   theme: {
     fontFamily: {
       'harlow': ['Harlow Solid', 'cursive'],
@@ -22,19 +22,14 @@ module.exports = {
       },
     },
     screens: {
-
       'lg': {'max': '1220px'},
-      // => @media (max-width: 1023px) { ... }
-
       'slg': {'max': '1100px'},
-      // => @media (max-width: 1023px) { ... }
-
+      'xslg': {'max': '970px'},
+      'xxslg': {'max': '820px'},
       'md': {'max': '767px'},
-      // => @media (max-width: 767px) { ... }
-
       'sm': {'max': '639px'},
-      // => @media (max-width: 639px) { ... }
-  },
+      'xs': {'max': '479px'},
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -85,10 +80,15 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "bounce": {
+          "0%, 100%": { transform: "translateY(-25%)" },
+          "50%": { transform: "none" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "bounce": "bounce 1s infinite",
       },
     },
   },
