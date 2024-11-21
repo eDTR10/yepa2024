@@ -4,21 +4,24 @@ import viteLogo from "/yepa2.png";
 
 import { Link, Outlet } from "react-router-dom";
 
-import { ModeToggle } from "./components/mode-toggle";
-// import Reveal from "./components/animation/reveal";
-import { SearchIcon } from "lucide-react";
-import NavLink from "./components/link/link";
 
+// import Reveal from "./components/animation/reveal";
+// import { SearchIcon } from "lucide-react";
+// import NavLink from "./components/link/link";
+import './screens/login/style.css'
 function App() {
 
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
      <div className=" bg-background min-h-screen w-full overflow-hidden flex flex-col  items-center">
+     <div className=' sunburst-bg w-screen h-screen flex items-center  absolute z-[1]'>
+
+</div>
       
-      <nav className=" animate__animated animate__slideInDown  z-20  fixed flex justify-between w-full max-w-[1468px]  border-b-[0px] border-accent  ">
+      <nav className=" animate__animated animate__slideInDown   z-[60]  fixed flex justify-between w-full max-w-[1468px]  border-b-[0px] border-accent  ">
         <Link className="" to="/yepa2024" >
-          <img src={viteLogo} className="logo w-44 object-contain " alt="Vite logo" />
+          <img src={viteLogo} className="logo w-44 sm:w-32 object-contain " alt="Vite logo" />
         </Link>
         {/* <nav className=" text-accent-foreground flex gap-10 uppercase items-center">
         <NavLink
@@ -49,7 +52,7 @@ function App() {
         </nav> */}
         <div className=" mr-5 top-0 mt-10">
 
-          <ModeToggle/>
+         
         </div>
         
        

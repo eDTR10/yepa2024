@@ -8,17 +8,22 @@ import { Suspense, lazy } from "react";
 import NotFound from "./screens/notFound";
 import Loader from './components/loader/loader.tsx';
 
-const Page1= lazy(() =>
-  wait(1300).then(() => import("./screens/page1.tsx"))
-);
 
-const Page2= lazy(() =>
-  wait(1300).then(() => import("./screens/page2.tsx"))
-);
+
 
 const Login = lazy(() =>
-  wait(1300).then(() => import("./screens/login/Login.tsx"))
+  wait(3000).then(() => import("./screens/login/Login.tsx"))
 );
+
+const DressPage = lazy(() =>
+  wait(1300).then(() => import("./screens/dress/DressPage.tsx"))
+);
+
+const SubmittedDressPage  = lazy(() =>
+  wait(1300).then(() => import("./screens/dress/SubmittedDressPage.tsx"))
+);
+
+
 const router = createBrowserRouter([
   {
 
@@ -34,6 +39,14 @@ const router = createBrowserRouter([
     </>,
   },
   {
+    path: "/yepa2024/Dress",
+    element: <>
+      <Suspense fallback={<Loader />}>
+        <DressPage />
+      </Suspense>
+    </>,
+  },
+  {
     path: "/yepa2024/vote",
     element: <App />,
     children: [
@@ -45,7 +58,15 @@ const router = createBrowserRouter([
         path: "/yepa2024/vote/mrqen",
         element: <>
           <Suspense fallback={<Loader />}>
-            <Page1/>
+            <DressPage />
+          </Suspense>
+        </>,
+      },
+      {
+        path: "/yepa2024/vote/done",
+        element: <>
+          <Suspense fallback={<Loader />}>
+            <SubmittedDressPage/>
           </Suspense>
         </>,
       },
