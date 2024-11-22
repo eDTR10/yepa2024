@@ -29,11 +29,11 @@ function Login() {
                 placeholder="Enter Name"
             />
           <button className=' w-[40%] self-center'>
-  <span className="shadow"></span>
-  <span className="edge"></span>
-  <span className="front  font-harlow"> Submit
-  </span>
-</button>
+            <span className="shadow"></span>
+            <span className="edge"></span>
+            <span className="front  font-harlow"> Submit
+            </span>
+          </button>
  
   
 

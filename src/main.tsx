@@ -19,6 +19,11 @@ const Page2= lazy(() =>
 const Login = lazy(() =>
   wait(1300).then(() => import("./screens/login/Login.tsx"))
 );
+
+const Dashboard = lazy(() =>
+  wait(1300).then(() => import("./screens/admin/Dashboard.tsx"))
+);
+
 const router = createBrowserRouter([
   {
 
@@ -50,6 +55,18 @@ const router = createBrowserRouter([
         </>,
       },
     ]
+  },
+  {
+    path: "/yepa2024/admin",
+    element: <App />,
+  },
+  {
+    path: "/yepa2024/admin/dashboard",
+    element: <>
+      <Suspense fallback={<Loader />}>
+        <Dashboard />
+      </Suspense>
+    </>,
   },
   
   {
