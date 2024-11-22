@@ -32,7 +32,7 @@ export default function Dress2({products}:any) {
                 <CardContent className="p-4 flex flex-col items-center justify-between h-full text-white">
                     <div className=' pointer-events-none relative flex w-full h-[100%] overflow-hidden'>
                         <img 
-                    src={product.image} 
+                    src={import.meta.env.VITE_URL+product.image} 
                     alt={product.title}
                     className="w-full h-full rounded-sm object-cover mb-4"
                   />

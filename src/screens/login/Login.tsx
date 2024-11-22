@@ -51,7 +51,7 @@ function Login() {
                 showConfirmButton: false,
                 timer: 1500
               });
-            localStorage.setItem("name",JSON.stringify(user))
+            localStorage.setItem("name",user)
             navigate("/yepa2024/vote")
               setuser("")
             }
