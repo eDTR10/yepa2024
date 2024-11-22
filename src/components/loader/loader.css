@@ -1,38 +1,98 @@
-.loading {
-   width: 3.25em;
-   transform-origin: center;
-   animation: rotate4 2s linear infinite;
-  }
-  
-  .loading-circle {
-   fill: none;
-   stroke: hsl(214, 97%, 59%);
-   stroke-width: 2;
-   stroke-dasharray: 1, 200;
-   stroke-dashoffset: 0;
-   stroke-linecap: round;
-   animation: dash4 1.5s ease-in-out infinite;
-  }
-  
-  @keyframes rotate4 {
-   100% {
-    transform: rotate(360deg);
+.container {
+   width: 175px;
+   height: 175px;
+   background-color: #ABC4AA;
+   border-radius: 10px;
+   position: relative;
+   box-shadow: 5px 5px 0 0 #675D50;
+ }
+ 
+ .plate {
+   width: fit-content;
+ }
+ 
+ .plate .black,
+ .plate .white,
+ .plate .center,
+ .plate .border {
+   border-radius: 100%;
+ }
+ 
+ .container,
+ .plate .black,
+ .plate .white,
+ .plate .border {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+ 
+ .plate .black {
+   width: 150px;
+   height: 150px;
+   background-color: #675D50;
+   animation: rotation 2s infinite linear;
+ }
+ 
+ @keyframes rotation {
+   from {
+     transform: rotate(0deg);
    }
-  }
-  
-  @keyframes dash4 {
-   0% {
-    stroke-dasharray: 1, 200;
-    stroke-dashoffset: 0;
+ 
+   to {
+     transform: rotate(359deg);
    }
-  
-   50% {
-    stroke-dasharray: 90, 200;
-    stroke-dashoffset: -35px;
-   }
-  
-   100% {
-    stroke-dashoffset: -125px;
-   }
-  }
-  
+ }
+ 
+ .plate .white {
+   width: 70px;
+   height: 70px;
+   background-color: #F3DEBA;
+ }
+ 
+ .plate .center {
+   width: 20px;
+   height: 20px;
+   background-color: #675D50;
+ }
+ 
+ .plate .border {
+   width: 111px;
+   height: 111px;
+   border-top: 3px solid #F3DEBA;
+   border-bottom: 3px solid #F3DEBA;
+   border-left: 3px solid #675D50;
+   border-right: 3px solid #675D50;
+ }
+ 
+ .player {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   width: fit-content;
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   margin-bottom: 8px;
+   margin-right: 8px;
+   rotate: -45deg;
+ }
+ 
+ .player .circ {
+   width: 25px;
+   height: 25px;
+   background-color: #F3DEBA;
+   border-radius: 100%;
+   z-index: 1;
+ }
+ 
+ .player .rect {
+   width: 10px;
+   height: 55px;
+   background-color: #F3DEBA;
+   position: absolute;
+   bottom: 0;
+   margin-bottom: 5px;
+ }
+ 

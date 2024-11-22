@@ -3,7 +3,7 @@ import ConfirmationDialog from '../voting-dialog/ConfirmationDialog';
 import Swal from 'sweetalert2';
 import axios from "@/components/plugin/axios";
 
-const VotingCard = ({ index, data }: any) => {
+const VotingCard = ({ index, data, fetchData, moveToNextTab }: any) => {
     const [ip, setIp] = useState<string | null>(null);
     const [votes, setVotes] = useState<any>([]);
     const [scores, setScores] = useState({
@@ -16,31 +16,7 @@ const VotingCard = ({ index, data }: any) => {
 
     const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage dialog visibility
 
-    useEffect(() => {
-        // Load scores from local storage if they exist
-        const savedScores = localStorage.getItem(`scores_${data?.name}`);
-        if (savedScores) {
-            setScores(JSON.parse(savedScores));
-        }
 
-
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('vote/all/', {
-                    headers: {
-                        Authorization: `Token ${localStorage.getItem("accessToken")}`,
-                    },
-                });
-                setVotes(response.data);
-                console.log('Fetched data:', response.data);
-            } catch (error: any) {
-                console.error('Error fetching data:', error.response ? error.response.data : error.message);
-            }
-        };
-
-        fetchData();
-
-    }, [data?.name]);
 
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -82,11 +58,13 @@ const VotingCard = ({ index, data }: any) => {
 
     const totalScore = Object.values(scores).reduce((acc, score) => acc + (parseInt(score as string, 10) || 0), 0);
 
-
     const handleConfirm = () => {
         setIsDialogOpen(false); // Hide the dialog
         localStorage.setItem(`scores_${data?.name}`, JSON.stringify(scores)); // Save scores to local storage
+        localStorage.setItem(`voted_${data?.uid}`, 'true'); // Indicate that the judge has voted for this contestant
         console.log('Scores submitted:', scores); // Handle form submission logic here
+        fetchData();
+        moveToNextTab();
     };
 
     const handleCancel = () => {
@@ -136,7 +114,6 @@ const VotingCard = ({ index, data }: any) => {
             localStorage.setItem("user", JSON.stringify(response.data));
 
         } catch (error: any) {
-
             console.error('Error fetching data:', error.response ? error.response.data : error.message);
             Swal.fire({
                 icon: "error",
@@ -146,27 +123,35 @@ const VotingCard = ({ index, data }: any) => {
             });
             handleConfirm();
         }
+
     };
 
-    // useEffect(() => {
-    //     fetchIp();
 
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get('contestant/all/', {
-    //                 headers: {
-    //                     Authorization: `Token ${localStorage.getItem("accessToken")}`,
-    //                 },
-    //             });
-    //             setContestants(response.data.event_type_2);
-    //             console.log('Fetched data:', response.data);
-    //         } catch (error: any) {
-    //             console.error('Error fetching data:', error.response ? error.response.data : error.message);
-    //         }
-    //     };
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        fetchIp();
+        // Load scores from local storage if they exist
+        const savedScores = localStorage.getItem(`scores_${data?.name}`);
+        if (savedScores) {
+            setScores(JSON.parse(savedScores));
+        }
 
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('vote/all/', {
+                    headers: {
+                        Authorization: `Token ${localStorage.getItem("accessToken")}`,
+                    },
+                });
+                setVotes(response.data);
+                console.log('Fetched data:', response.data);
+            } catch (error: any) {
+                console.error('Error fetching data:', error.response ? error.response.data : error.message);
+            }
+        };
+
+        fetchData();
+
+    }, [data?.name]);
     return (
         <div className='mb-12 border-4 border-[#ff6347] rounded-lg p-4 overflow-auto bg-[#f5f5dc] shadow-lg'>
             <p className='text-[#ff6347] text-lg mb-2 animate-bounce font-harlow'>📼 Now Playing: <u className=' text-3xl '>{data?.name}</u></p>

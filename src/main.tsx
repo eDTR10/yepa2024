@@ -1,25 +1,35 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
-import App from './App.tsx'
+
 import './index.css'
 import { Suspense, lazy } from "react";
 
 import NotFound from "./screens/notFound";
 import Loader from './components/loader/loader.tsx';
 import SettingsContainer from './screens/settings/SettingsContainer.tsx';
+import App from './App.tsx';
+import ChooseCategory from './screens/choose-category/ChooseCategory.tsx';
 
-const Page1 = lazy(() =>
-  wait(1300).then(() => import("./screens/page1.tsx"))
-);
 
-const Page2 = lazy(() =>
-  wait(1300).then(() => import("./screens/page2.tsx"))
-);
+
 
 const Login = lazy(() =>
-  wait(1300).then(() => import("./screens/login/Login.tsx"))
+  wait(3000).then(() => import("./screens/login/Login.tsx"))
 );
+
+const DressPage = lazy(() =>
+  wait(1300).then(() => import("./screens/dress/DressPage.tsx"))
+);
+
+const SubmittedDressPage = lazy(() =>
+  wait(1300).then(() => import("./screens/dress/SubmittedDressPage.tsx"))
+);
+
+const MainDress = lazy(() =>
+  wait(1300).then(() => import("./screens/dress/MainDress.tsx"))
+);
+
 
 const PerformanceBattle = lazy(() =>
   wait(1300).then(() => import("./screens/performance-battle/PerformanceBattleContainer.tsx"))
@@ -28,6 +38,8 @@ const PerformanceBattle = lazy(() =>
 const Setting = lazy(() =>
   wait(1300).then(() => import("./screens/settings/SettingsContainer.tsx"))
 );
+
+
 
 
 const router = createBrowserRouter([
@@ -45,8 +57,24 @@ const router = createBrowserRouter([
     </>,
   },
   {
+    path: "/yepa2024/Dress",
+    element: <>
+      <Suspense fallback={<Loader />}>
+        <DressPage />
+      </Suspense>
+    </>,
+  },
+  {
+    path: "/yepa2024/chosen-category",
+    element: <>
+      <Suspense fallback={<Loader />}>
+        <ChooseCategory />
+      </Suspense>
+    </>,
+  },
+  {
     path: "/yepa2024/vote",
-    element: <App />,
+    element: <MainDress />,
     children: [
       {
         path: "/yepa2024/vote",
@@ -56,13 +84,17 @@ const router = createBrowserRouter([
         path: "/yepa2024/vote/mrqen",
         element: <>
           <Suspense fallback={<Loader />}>
-            <Page1 />
+            <DressPage />
           </Suspense>
         </>,
       },
       {
-        path: "/yepa2024/vote",
-        element: <Navigate to="/yepa2024/vote/performance-battle" />,
+        path: "/yepa2024/vote/done",
+        element: <>
+          <Suspense fallback={<Loader />}>
+            <SubmittedDressPage />
+          </Suspense>
+        </>,
       },
       {
         path: "/yepa2024/vote/performance-battle",

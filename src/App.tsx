@@ -11,6 +11,8 @@ import NavLink from "./components/link/link";
 
 function App() {
 
+  const name = localStorage.getItem("name")
+  console.log(name)
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
