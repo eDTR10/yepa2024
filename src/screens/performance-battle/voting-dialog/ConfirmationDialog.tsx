@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import React from 'react';
 
-const ConfirmationDialog = ({ onConfirm, onCancel }: { onConfirm: () => void, onCancel: () => void }) => {
+const ConfirmationDialog = ({ handleSubmit, onConfirm, onCancel }: { handleSubmit: () => void, onConfirm: () => void, onCancel: () => void }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-[#f5f5dc] p-6 rounded-lg shadow-lg">
@@ -16,7 +16,7 @@ const ConfirmationDialog = ({ onConfirm, onCancel }: { onConfirm: () => void, on
                     </Button>
                     <Button
                         className="bg-[#ff6347] text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition-colors duration-300"
-                        onClick={onConfirm}
+                        onClick={handleSubmit}
                     >
                         Yes
                     </Button>

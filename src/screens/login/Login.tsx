@@ -12,6 +12,7 @@ function Login() {
         className='animate__animated animate__backInDown z-10 w-[95%] rounded-md flex-col pb-10 pt-3  max-w-[500px] px-5 flex bg-[#ffc764]  drop-shadow-md border-[8px] border-[#ca5a4c] '
         onSubmit={(e: any) => {
           e.preventDefault()
+          console.log(e.target.username.value)
         }}>
 
         <img src={viteLogo} className='w-full h-40 object-contain' alt="" />

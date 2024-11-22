@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ConfirmationDialog from '../voting-dialog/ConfirmationDialog';
+import Swal from 'sweetalert2';
+import axios from "@/components/plugin/axios";
 
-const VotingCard = ({ data }: any) => {
+const VotingCard = ({ index, data }: any) => {
+    const [ip, setIp] = useState<string | null>(null);
+    const [votes, setVotes] = useState<any>([]);
     const [scores, setScores] = useState({
         talent: '',
         creativity: '',
@@ -14,11 +18,29 @@ const VotingCard = ({ data }: any) => {
 
     useEffect(() => {
         // Load scores from local storage if they exist
-        const savedScores = localStorage.getItem(`scores_${data?.team_name}`);
+        const savedScores = localStorage.getItem(`scores_${data?.name}`);
         if (savedScores) {
             setScores(JSON.parse(savedScores));
         }
-    }, [data?.team_name]);
+
+
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('vote/all/', {
+                    headers: {
+                        Authorization: `Token ${localStorage.getItem("accessToken")}`,
+                    },
+                });
+                setVotes(response.data);
+                console.log('Fetched data:', response.data);
+            } catch (error: any) {
+                console.error('Error fetching data:', error.response ? error.response.data : error.message);
+            }
+        };
+
+        fetchData();
+
+    }, [data?.name]);
 
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -60,13 +82,10 @@ const VotingCard = ({ data }: any) => {
 
     const totalScore = Object.values(scores).reduce((acc, score) => acc + (parseInt(score as string, 10) || 0), 0);
 
-    const handleSubmit = () => {
-        setIsDialogOpen(true); // Show the dialog
-    };
 
     const handleConfirm = () => {
         setIsDialogOpen(false); // Hide the dialog
-        localStorage.setItem(`scores_${data?.team_name}`, JSON.stringify(scores)); // Save scores to local storage
+        localStorage.setItem(`scores_${data?.name}`, JSON.stringify(scores)); // Save scores to local storage
         console.log('Scores submitted:', scores); // Handle form submission logic here
     };
 
@@ -74,9 +93,83 @@ const VotingCard = ({ data }: any) => {
         setIsDialogOpen(false); // Hide the dialog
     };
 
+    const fetchIp = async () => {
+        try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            setIp(data.ip);
+        } catch (error) {
+            console.error('Error fetching IP:', error);
+        }
+    };
+
+    // Call fetchIp on component mount
+
+    const handleSubmit = async () => {
+        setIsDialogOpen(true); // Show the dialog
+
+        const scoresArray = [scores.talent, scores.creativity, scores.stagePresence, scores.relevanceToICT, scores.timeAdherence].map(Number);
+
+        const formData = [{
+            ip: ip || '',
+            voted_to: data?.uid,
+            name: 'Sittie',
+            score: scoresArray,
+            event_type: 2
+        }];
+
+        try {
+            const response = await axios.post('/vote/all/', formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem("accessToken")}`,
+                }
+            });
+
+            Swal.fire({
+                icon: "success",
+                title: "Updated Successfully...",
+                showConfirmButton: false,
+                timer: 2000
+            });
+            handleConfirm();
+            localStorage.setItem("user", JSON.stringify(response.data));
+
+        } catch (error: any) {
+
+            console.error('Error fetching data:', error.response ? error.response.data : error.message);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error.response?.data?.non_field_errors?.[0] || error.message,
+                showConfirmButton: false,
+            });
+            handleConfirm();
+        }
+    };
+
+    // useEffect(() => {
+    //     fetchIp();
+
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get('contestant/all/', {
+    //                 headers: {
+    //                     Authorization: `Token ${localStorage.getItem("accessToken")}`,
+    //                 },
+    //             });
+    //             setContestants(response.data.event_type_2);
+    //             console.log('Fetched data:', response.data);
+    //         } catch (error: any) {
+    //             console.error('Error fetching data:', error.response ? error.response.data : error.message);
+    //         }
+    //     };
+    //     fetchData();
+    // }, []);
+
     return (
         <div className='mb-12 border-4 border-[#ff6347] rounded-lg p-4 overflow-auto bg-[#f5f5dc] shadow-lg'>
-            <p className='text-[#ff6347] text-lg mb-2 animate-bounce font-harlow'>📼 Now Playing: <u className=' text-3xl '>{data?.team_name}</u></p>
+            <p className='text-[#ff6347] text-lg mb-2 animate-bounce font-harlow'>📼 Now Playing: <u className=' text-3xl '>{data?.name}</u></p>
             <p className='text-[#ff6347] font-harlow text-xl mb-2 text-center'>Scoring Matrix </p>
 
             <table className='w-full border-collapse border border-[#ff6347] text-[#333]'>
@@ -159,6 +252,7 @@ const VotingCard = ({ data }: any) => {
             </div>
             {isDialogOpen && (
                 <ConfirmationDialog
+                    handleSubmit={handleSubmit}
                     onConfirm={handleConfirm}
                     onCancel={handleCancel}
                 />
