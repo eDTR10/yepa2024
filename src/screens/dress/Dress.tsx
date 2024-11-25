@@ -119,7 +119,7 @@ export default function DressCarousel({ products, setProducts }: {
     products?.map((product, index) => (
       <motion.div
         key={product.id}
-        className="absolute"
+        className="absolute  "
         initial={getCardStyle(index)}
         animate={getCardStyle(index)}
         exit={{ opacity: 0 }}
@@ -141,7 +141,7 @@ export default function DressCarousel({ products, setProducts }: {
       >
         <Card
           className={cn(
-            'w-[200px] h-[300px] pb-2 cursor-grab active:cursor-grabbing shadow-lg transition-shadow',
+            'w-[200px] h-[300px] animate__animated  animate__jackInTheBox pb-2 cursor-grab active:cursor-grabbing shadow-lg transition-shadow',
             product.color
           )}
         >
@@ -152,7 +152,7 @@ export default function DressCarousel({ products, setProducts }: {
                 alt={product.title}
                 className="w-full h-full rounded-sm object-cover mb-4"
               />
-              <h3 className="bg-white px-1 py-1  rounded-sm self-center shadow-sm absolute bottom-0 text-md font-harlow text-[#ca4c85] capitalize">
+              <h3 className="bg-white px-1 py-1 mb-1    animate__animated animate__wobble  rounded-sm self-center shadow-sm absolute bottom-0 text-md font-harlow text-[#ca4c85] capitalize">
                 {capitalizeFirst(product.title)}
               </h3>
             </div>
@@ -165,7 +165,7 @@ export default function DressCarousel({ products, setProducts }: {
                 handleVote(product.id)
               }}
               className={cn(
-                "mt-2 transition-colors bg-black",
+                "mt-2 transition-colors bg-black animate__animated animate__bounceIn animate__delay-1s ",
                 product.voted ? "text-red-500" : "text-white"
               )}
             >

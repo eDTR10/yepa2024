@@ -22,7 +22,7 @@ export default function Dress2({products}:any) {
           {products?products.map((product:any, _index:any) => (
             <div
               key={product.id}
-              className="  "
+              className=" animate__animated  animate__wobble animate__repeat-3"
             >
               <Card
                 className={cn(
