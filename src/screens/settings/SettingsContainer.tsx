@@ -27,13 +27,13 @@ const SettingsContainer = () => {
         <div className='w-screen h-screen flex items-start justify-center'>
             {/* <div className='sunburst-bg w-screen h-screen flex items-center absolute z-0' /> */}
 
-            <button className='w-[10%] self-center' onClick={openPBDialog}>
+            <button className='w-[30%] self-center' onClick={openPBDialog}>
                 <span className="shadow"></span>
                 <span className="edge"></span>
                 <span className="front font-harlow"> Add Contestant </span>
             </button>
             <div className='mx-4' />
-            <button className='w-[10%] self-center' onClick={openMDressDialog}>
+            <button className='w-[30%] self-center' onClick={openMDressDialog}>
                 <span className="shadow"></span>
                 <span className="edge"></span>
                 <span className="front font-harlow"> Add Mr and Ms Dress Contestant </span>
