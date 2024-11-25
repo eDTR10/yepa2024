@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
 
@@ -7,6 +6,7 @@ import { Suspense, lazy } from "react";
 
 import NotFound from "./screens/notFound";
 import Loader from './components/loader/loader.tsx';
+import { ErrorBoundary } from './Error.tsx';
 
 
 
@@ -42,16 +42,9 @@ const router = createBrowserRouter([
     </>,
   },
   {
-    path: "/yepa2024/Dress",
-    element: <>
-      <Suspense fallback={<Loader />}>
-        <DressPage />
-      </Suspense>
-    </>,
-  },
-  {
     path: "/yepa2024/vote",
     element: <MainDress  />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: "/yepa2024/vote",
@@ -74,7 +67,13 @@ const router = createBrowserRouter([
         </>,
       },
     ]
+    
   },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+
   
   {
     path: "*",
@@ -93,8 +92,5 @@ function wait( time:number) {
   });
 }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+ReactDOM.createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />
 )
