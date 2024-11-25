@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import '@/screens/login/style.css';
 import AddPBContestantDialog from './performance-battle-onboard/AddPBContestantDialog';
 import AddMDressContestantDialog from './mr-and-ms-dress-onboard/AddMDressContestantDialog';
@@ -30,18 +30,23 @@ const SettingsContainer = () => {
 
     const deleteContestant = async (id: any) => {
         try {
-            const response = await axios.delete(`/contestant/${id}/`, {
+             await axios.delete(`/contestant/${id}/`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Token ${localStorage.getItem("accessToken")}`,
                 }
-            });
-            Swal.fire({
-                icon: "success",
-                title: "Deleted Successfully...",
-                showConfirmButton: false,
-                timer: 2000
-            });
+            }).then(()=>{
+                Swal.fire({
+                    icon: "success",
+                    title: "Deleted Successfully...",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            })
+
+
+
+            
 
             // Refresh the list of contestants after deletion
             fetchContestants();

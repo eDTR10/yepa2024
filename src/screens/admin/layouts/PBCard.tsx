@@ -8,18 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import '@/screens/admin/style.css'
 
 
-const getEventType = (uid:any) => {
-    switch (uid) {
-    case 0:
-        return 'Mr.';
-    case 1:
-        return 'Ms.';
-    case 2:
-        return 'Perfomance Battle';
-    default:
-        return 'Unknown Event';
-    }
-};
+
 
 
 

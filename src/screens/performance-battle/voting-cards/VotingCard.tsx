@@ -3,9 +3,9 @@ import ConfirmationDialog from '../voting-dialog/ConfirmationDialog';
 import Swal from 'sweetalert2';
 import axios from "@/components/plugin/axios";
 
-const VotingCard = ({ index, data, fetchData, moveToNextTab }: any) => {
+const VotingCard = ({  data, fetchData, moveToNextTab }: any) => {
     const [ip, setIp] = useState<string | null>(null);
-    const [votes, setVotes] = useState<any>([]);
+    const [_votes, setVotes] = useState<any>([]);
     const [scores, setScores] = useState({
         talent: '',
         creativity: '',

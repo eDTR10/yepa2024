@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
-import React from 'react';
 
-const ConfirmationDialog = ({ handleSubmit, onConfirm, onCancel }: { handleSubmit: () => void, onConfirm: () => void, onCancel: () => void }) => {
+
+const ConfirmationDialog = ({ handleSubmit, onCancel }: { handleSubmit: () => void, onConfirm: () => void, onCancel: () => void }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-[#f5f5dc] p-6 rounded-lg shadow-lg">
