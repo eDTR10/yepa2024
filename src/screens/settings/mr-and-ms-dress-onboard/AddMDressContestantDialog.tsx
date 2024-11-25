@@ -9,6 +9,7 @@ const AddMDressContestantDialog = ({ open, onClose }: any) => {
     const [picturePreview, setPicturePreview] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (open) {
@@ -18,6 +19,7 @@ const AddMDressContestantDialog = ({ open, onClose }: any) => {
             setPicture(null);
             setPicturePreview(null);
             setError(null);
+            setIsLoading(false);
         }
     }, [open]);
 
@@ -47,6 +49,8 @@ const AddMDressContestantDialog = ({ open, onClose }: any) => {
             setError('Please provide both name and picture');
             return;
         }
+
+        setIsLoading(true);
 
         const formData = new FormData();
         formData.append('name', name);
@@ -83,6 +87,8 @@ const AddMDressContestantDialog = ({ open, onClose }: any) => {
                 text: error.response?.data?.non_field_errors?.[0] || error.message,
                 showConfirmButton: false,
             });
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -140,7 +146,13 @@ const AddMDressContestantDialog = ({ open, onClose }: any) => {
                         </div>
                     )}
                 </div>
-                <button onClick={handleSubmit} className="w-full p-2 bg-[#ff6347] text-white rounded cursor-pointer">Submit</button>
+                <button
+                    onClick={handleSubmit}
+                    className="w-full p-2 bg-[#ff6347] text-white rounded cursor-pointer"
+                    disabled={isLoading}
+                >
+                    {isLoading ? 'Submitting...' : 'Submit'}
+                </button>
             </div>
             {showSuccess && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
