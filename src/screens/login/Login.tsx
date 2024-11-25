@@ -46,16 +46,31 @@ function Login() {
             localStorage.setItem("name", user)
             setuser("")
           } else {
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: `Welcome to YEPA 2k24 ${user.toUpperCase()}`,
-              showConfirmButton: false,
-              timer: 1500
-            });
-            localStorage.setItem("name", user)
-            navigate("/yepa2024/vote")
-            setuser("")
+            console.log(user)
+            if (user === "admin") {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: `Welcome to ADMIN`,
+                showConfirmButton: false,
+                timer: 1500
+              });
+              navigate("/yepa2024/admin")
+              localStorage.setItem("name", user)
+              setuser("")
+            } else {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: `Welcome to YEPA 2k24 ${user.toUpperCase()}`,
+                showConfirmButton: false,
+                timer: 1500
+              });
+              localStorage.setItem("name", user)
+              navigate("/yepa2024/vote")
+              setuser("")
+            }
+
           }
         }}>
 
@@ -82,11 +97,11 @@ function Login() {
               placeholder="Enter Name"
             />
             <button className=' w-[40%] self-center'>
-                        <span className="shadow"></span>
-                        <span className="edge"></span>
-                        <span className="front  font-harlow "> Submit
-                        </span>
-                      </button>
+              <span className="shadow"></span>
+              <span className="edge"></span>
+              <span className="front  font-harlow "> Submit
+              </span>
+            </button>
 
 
 

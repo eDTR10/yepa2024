@@ -131,7 +131,7 @@ const AddMDressContestantDialog = ({ open, onClose }: any) => {
                     />
                     {picturePreview && (
                         <div className="mt-3">
-                            <img src={picturePreview} alt="Preview" className="w-full h-auto rounded" />
+                            <img src={picturePreview} alt="Preview" className="w-full h-[250px] rounded" />
                         </div>
                     )}
                     {error && (
