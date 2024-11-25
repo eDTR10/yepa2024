@@ -33,12 +33,12 @@ function PBCard() {
     }; 
 
     function getEvent() {
-        // const userName = localStorage.getItem('name');
+        const userName = localStorage.getItem('name');
         
-        // if (userName !== 'ryanss') {
-        //     navigate("/yepa2024/login")
-        //     return;
-        // }
+        if (userName !== 'Ryan') {
+            navigate("/yepa2024/login")
+            return;
+        }
         
         axios.get('contestant/all', {
         }).then((response:any) => {
