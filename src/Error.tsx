@@ -1,5 +1,5 @@
-import React from 'react';
-import { PartyPopper, Stars, Sun } from 'lucide-react';
+
+import { PartyPopper, Stars } from 'lucide-react';
 
 export default function YEPALoader() {
   return (

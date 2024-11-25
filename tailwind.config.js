@@ -6,7 +6,7 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   theme: {
     fontFamily: {
       'harlow': ['Harlow Solid', 'cursive'],
@@ -22,24 +22,17 @@ module.exports = {
       },
     },
     screens: {
-
-      'lg': {'max': '1220px'},
-      // => @media (max-width: 1023px) { ... }
-
-      'slg': {'max': '1100px'},
-      // => @media (max-width: 1023px) { ... }
-
-      'md': {'max': '767px'},
-      // => @media (max-width: 767px) { ... }
-
-      'sm': {'max': '639px'},
-      // => @media (max-width: 639px) { ... }
-  },
+      'lg': { 'max': '1220px' },
+      'slg': { 'max': '1100px' },
+      'xslg': { 'max': '970px' },
+      'xxslg': { 'max': '820px' },
+      'md': { 'max': '767px' },
+      'sm': { 'max': '639px' },
+      'xs': { 'max': '479px' },
+    },
     extend: {
-      
-      
       colors: {
-        border: "hsl(var(--border))",
+        border: "white",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -87,23 +80,44 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
-        'text': {
-                '0%, 100%': {
-                   'background-size':'200% 200%',
-                    'background-position': 'left center'
-                },
-                '50%': {
-                   'background-size':'200% 200%',
-                    'background-position': 'right center'
-                }
-      },},
-    
+        "text": {
+          "0%, 100%": {
+            backgroundSize: "200% 200%",
+            backgroundPosition: "left center",
+          },
+          "50%": {
+            backgroundSize: "200% 200%",
+            backgroundPosition: "right center",
+          },
+        },
+        "bounce": {
+          "0%, 100%": { transform: "translateY(-25%)" },
+          "50%": { transform: "translateY(0)" },
+        },
+        "pop-down": {
+          "0%": { transform: "translateY(-100%)", opacity: 0 },
+          "100%": { transform: "translateY(0)", opacity: 1 },
+        },
+        "spin": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "fade-out": {
+          "0%": { opacity: 1 },
+          "100%": { opacity: 0 },
+        },
+      },
       animation: {
-        'text':'text 2s ease infinite',
+        'text': 'text 2s ease infinite',
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "bounce": "bounce 1s infinite",
+        "pop-down": "pop-down 0.5s ease-out",
+        "spin": "spin 1s linear infinite",
+        "fade-out": "fade-out 3s forwards",
+        "spin-fade": "spin 1s linear infinite, fade-out 3s forwards",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
