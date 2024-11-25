@@ -59,12 +59,12 @@ function PBCard() {
                 <div className="flex-1 flex flex-col items-center z-0">
                     <Tabs defaultValue="pb" className="w-full p-10 z-40">
                         <TabsList className="flex justify-center w-full sticky top-0 ">
-                            <TabsTrigger value="pb" className="flex-1 text-2xl  text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Performance Battle</TabsTrigger>
-                            <TabsTrigger value="mr." className="flex-1 text-2xl text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Mr. Dress</TabsTrigger>
-                            <TabsTrigger value="ms." className="flex-1 text-2xl text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Ms. Dress</TabsTrigger>
+                            <TabsTrigger value="pb" className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Performance Battle</TabsTrigger>
+                            <TabsTrigger value="mr." className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Mr. Dress</TabsTrigger>
+                            <TabsTrigger value="ms." className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Ms. Dress</TabsTrigger>
                         </TabsList>
                         <TabsContent value="pb" className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] justify-start' onClick={backtoNavigateToParticipants}>
+                            <button className='mt-10 mb-10 w-[20%] xs:w-[100%] justify-start' onClick={backtoNavigateToParticipants}>
                                 <span className="shadow"></span>
                                 <span className="edge"></span>
                                 <span className="front  font-harlow "> Back to dashboard
@@ -72,7 +72,7 @@ function PBCard() {
                             </button>
                             <div className="justify-center flex-row flex flex-wrap space-x-4 xs:flex xs:flex-col xs:justify-center">
                                 {events?.event_type_2?.map((event:any, index:any) => (
-                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg">
+                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg ">
                                         <div className='w-full h-[150px] flex justify-center items-center overflow-hidden'>
                                             <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
                                         </div>
@@ -87,7 +87,7 @@ function PBCard() {
                             </div>
                         </TabsContent>
                         <TabsContent value="mr." className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] justify-start' onClick={backtoNavigateToParticipants}>
+                            <button className='mt-10 mb-10 w-[20%] xs:w-[100%] justify-start' onClick={backtoNavigateToParticipants}>
                                 <span className="shadow"></span>
                                 <span className="edge"></span>
                                 <span className="front  font-harlow "> Back to dashboard
@@ -110,7 +110,7 @@ function PBCard() {
                             </div>
                         </TabsContent>
                         <TabsContent value="ms." className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] justify-start' onClick={backtoNavigateToParticipants}>
+                            <button className='mt-10 mb-10 w-[20%] justify-start xs:w-[100%]' onClick={backtoNavigateToParticipants}>
                                 <span className="shadow"></span>
                                 <span className="edge"></span>
                                 <span className="front  font-harlow "> Back to dashboard
@@ -118,7 +118,7 @@ function PBCard() {
                             </button>
                             <div className="justify-center flex-row flex-wrap flex space-x-4 xs:flex xs:flex-col xs:justify-center">
                                 {events?.event_type_1?.map((event:any, index:any) => (
-                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg">
+                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg xs:justify-center">
                                         <div className='w-full h-[150px] flex justify-center items-center overflow-hidden'>
                                             <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
                                         </div>

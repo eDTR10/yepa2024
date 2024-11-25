@@ -24,15 +24,15 @@ function Dashboard() {
                             <TabsTrigger value="dashboard" className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Dashboard</TabsTrigger>
                             <TabsTrigger value="settings" className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Settings</TabsTrigger>
                         </TabsList>
-                        <TabsContent value="dashboard" className="w-full h-[calc(100vh-4rem)] ">
-                            <div className="mt-48 justify-center flex-row flex space-x-4 xs:flex xs:flex-col xs:justify-center">
+                        <TabsContent value="dashboard" className="w-full h-[calc(100vh-4rem)] xs:justify-center">
+                            <div className="mt-48 justify-center flex-row flex space-x-4 xs:flex xs:flex-row ">
                                 <button className='w-[20%] xs:w-[50%]' onClick={navigateToParticipants}>
                                     <span className="shadow"></span>
                                     <span className="edge"></span>
                                     <span className="front font-harlow">Participants</span>
                                 </button>
 
-                                <button className=' w-[20%]' onClick={navigateToRatings}>
+                                <button className=' w-[20%] xs:w-[50%] ' onClick={navigateToRatings}>
                                     <span className="shadow"></span>
                                     <span className="edge"></span>
                                     <span className="front  font-harlow "> Ratings

@@ -40,12 +40,12 @@ function Ratings() {
                 <div className="flex-1 flex flex-col items-center z-0">
                     <Tabs defaultValue="pb" className="w-full p-10 z-40">
                         <TabsList className="flex justify-center w-full sticky top-0 ">
-                            <TabsTrigger value="pb" className="flex-1 text-2xl  text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Performance Ranking</TabsTrigger>
-                            <TabsTrigger value="mr." className="flex-1 text-2xl text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Male Ranking</TabsTrigger>
-                            <TabsTrigger value="ms." className="flex-1 text-2xl text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Female Ranking</TabsTrigger>
+                            <TabsTrigger value="pb" className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Performance Ranking</TabsTrigger>
+                            <TabsTrigger value="mr." className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Male Ranking</TabsTrigger>
+                            <TabsTrigger value="ms." className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Female Ranking</TabsTrigger>
                         </TabsList>
                         <TabsContent value="pb" className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] justify-start' onClick={backToDashboard}>
+                            <button className='mt-10 mb-10 w-[20%] xs:w-[100%] justify-start' onClick={backToDashboard}>
                                 <span className="shadow"></span>
                                 <span className="edge"></span>
                                 <span className="front  font-harlow "> Back to dashboard
@@ -73,7 +73,7 @@ function Ratings() {
                             </div>
                         </TabsContent>
                         <TabsContent value="mr." className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] justify-start' onClick={backToDashboard}>
+                            <button className='mt-10 mb-10 w-[20%] xs:w-[100%] justify-start' onClick={backToDashboard}>
                                 <span className="shadow"></span>
                                 <span className="edge"></span>
                                 <span className="front  font-harlow "> Back to dashboard
@@ -101,7 +101,7 @@ function Ratings() {
                             </div>
                         </TabsContent>
                         <TabsContent value="ms." className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] justify-start' onClick={backToDashboard}>
+                            <button className='mt-10 mb-10 w-[20%] xs:w-[100%] justify-start' onClick={backToDashboard}>
                                 <span className="shadow"></span>
                                 <span className="edge"></span>
                                 <span className="front  font-harlow "> Back to dashboard
