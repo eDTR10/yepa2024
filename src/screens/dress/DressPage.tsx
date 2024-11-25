@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
-
-
-
-
-import Dress from './Dress';
-import './card.css'
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import Dress from './Dress';
+import './card.css';
 import axios from './../../plugin/axios';
+import Swal from 'sweetalert2';
+import { LoaderIcon } from 'lucide-react';
+
+interface Contestant {
+  uid: number;
+  name: string;
+  photos: string;
+}
+
 interface Product {
   id: number;
   title: string;
@@ -16,100 +20,59 @@ interface Product {
   voted: boolean;
 }
 
-function DressPage() {
-    const navigate = useNavigate();
-    const [products, setProducts] = useState<Product[]>([]);
+interface VotePayload {
+  ip: string;
+  voted_to: number;
+  name: string;
+  event_type: number;
+}
 
-  
-    const [products2, setProducts2] = useState<Product[]>([]);
-
-    function Voting(data:any){
-      axios.post('vote/all/',data).then((e:any)=>{
-        console.log(e.data)
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Your vote has been saved",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }).catch((_e:any)=>{
-        Swal.fire({
-          position: "center",
-          icon:"error",
-          title: "Your vote has been Stock",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      })
-    }
-    console.log("rerender")
-    function GetPartcipance() {
-
-      
-      axios.get("contestant/all/").then((e:any)=>{
-        const transformedData = e.data.event_type_1.map((item:any) => ({
-          id: item.uid,
-          title: item.name || "Maria", // Fallback if name is null
-          color: "bg-pink-500",         // Assign a default color
-          image: item.photos || "/media/photos/DICT_Sub-brandLogo_for_dark_backgrounds.png", // Fallback image if photos is null
-          voted: false                  // Default value
-      }));
-      const transformedData0 = e.data.event_type_0.map((item:any) => ({
-        id: item.uid,
-        title: item.name || "John Doe", // Fallback if name is null
-        color: "bg-blue-500",         // Assign a default color
-        image: item.photos || "/media/photos/DICT_Sub-brandLogo_for_dark_backgrounds.png", // Fallback image if photos is null
-        voted: false                  // Default value
-    }));
-        setProducts(transformedData)
-        setProducts2(transformedData0)
-
-        
-
-      })
-      
-    }
-    useEffect(() => {
-
-      GetPartcipance()
-
-
-        const data = localStorage.getItem("mr&ms");
-        const name = localStorage.getItem("name");
-
-        if (!name) {
-          navigate("/yepa2024/login")
-          
-        }
-        if (data) {
-            navigate("/yepa2024/vote/done")
-        }
-      }, []);
-      
-
-  
-
-  // Function to check if any product has been voted for
-  const hasVoted = () => {
-    return products.some((product) => product.voted) &&  products2.some((product) => product.voted);
-  };
-
+const DressPage = () => {
+  const [loading,setLoading] = useState(false)
+  const navigate = useNavigate();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [products2, setProducts2] = useState<Product[]>([]);
   const [ip, setIp] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Function to check if any product has been voted for
+  const DEFAULT_IMAGE = "/media/photos/DICT_Sub-brandLogo_for_dark_backgrounds.png";
 
-
-  // Function to fetch products with voted = true
-  const getVotedData = () => {
-    const votedProducts = [
-      ...products.filter((product) => product.voted),
-      ...products2.filter((product) => product.voted),
-    ];
-    return votedProducts;
+  // Transform contestant data to product format
+  const transformContestantData = (contestants: Contestant[], eventType: number): Product[] => {
+    return contestants.map(item => ({
+      id: item.uid,
+      title: item.name || (eventType === 1 ? "Maria" : "John Doe"),
+      color: eventType === 1 ? ` bg-gradient-to-t  
+       from-[#feafc7] to-[#fd427a] ` : `bg-gradient-to-t  
+       from-[#a4c5fb] to-[#3b82f6]`,
+      image: item.photos || DEFAULT_IMAGE,
+      voted: false
+    }));
   };
 
-  // Function to get device IP
+  // Fetch contestants data
+  const fetchContestants = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get("contestant/all/");
+      
+      setProducts(transformContestantData(response.data.event_type_1, 1));
+      setProducts2(transformContestantData(response.data.event_type_0, 0));
+    } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Failed to fetch contestants",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      console.error('Error fetching contestants:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch IP address
   const fetchIp = async () => {
     try {
       const response = await fetch('https://api.ipify.org?format=json');
@@ -117,90 +80,150 @@ function DressPage() {
       setIp(data.ip);
     } catch (error) {
       console.error('Error fetching IP:', error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Failed to get IP address",
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   };
 
-  // Call fetchIp on component mount
+  // Submit votes
+  const submitVote = async (voteData: VotePayload[]) => {
+    try {
+      await axios.post('vote/all/', voteData);
+      
+      localStorage.setItem("mr&ms", JSON.stringify({ ip, votedData: getVotedData() }));
+      
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your vote has been saved",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      setLoading(false)
+      setTimeout(() => {
+        navigate("/yepa2024/vote/done");
+      }, 1000);
+    } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Your vote has been Stock",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  };
+
+  // Check authorization and fetch initial data
   useEffect(() => {
+    const name = localStorage.getItem("name");
+    const previousVote = localStorage.getItem("mr&ms");
+
+    if (!name) {
+      navigate("/yepa2024/login");
+      return;
+    }
+
+    if (previousVote) {
+      navigate("/yepa2024/vote/done");
+      return;
+    }
+
+    fetchContestants();
     fetchIp();
-  }, []);
+  }, [navigate]);
 
+  // Get voted products
+  const getVotedData = () => [
+    ...products.filter(product => product.voted),
+    ...products2.filter(product => product.voted)
+  ];
 
-  const transformData = (currentData:any, ip:any, name:any) => {
-    return [
+  // Check if voting is complete
+  const hasVoted = () => 
+    products.some(product => product.voted) && 
+    products2.some(product => product.voted);
+
+  // Handle vote submission
+  const handleSubmit = () => {
+    setLoading(true)
+    const votedData = getVotedData();
+    if (!votedData.length) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "No votes have been cast!",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return;
+    }
+
+    const name = localStorage.getItem("name") || "";
+    const votePayload: VotePayload[] = [
       {
-        ip:ip,
-        voted_to: currentData[0].id,
-        name:name,
-        "event_type":1
+        ip,
+        voted_to: votedData[0].id,
+        name,
+        event_type: 1
       },
       {
         ip,
-        voted_to: currentData[1].id,
+        voted_to: votedData[1].id,
         name,
-        "event_type":0
+        event_type: 0
       }
     ];
+
+    submitVote(votePayload);
   };
 
+  
 
-  const handleSubmit = () => {
-    const votedData = getVotedData();
-    if (!votedData.length) {
-      alert('No votes have been cast!');
-      return;
-    }
-    let data = {ip,
-
-        votedData
-    }
-      let name = localStorage.getItem("name")?localStorage.getItem("name"):""
-      let votes = [votedData]
-      let body =transformData(votes[0] ,ip,name)
-      Voting(body)
-    localStorage.setItem("mr&ms",JSON.stringify(data))
-
-    // Prevent voting again by saving the IP (you could use local storage or send it to a server)
-    setTimeout(()=>{
-      navigate("/yepa2024/vote/done")
-    },1000)
-    
-  };
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-pink-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full flex items-center flex-col justify-center">
-   
+      {!hasVoted() && (
+       <div className="text-3xl text-center absolute  z-[1000] font-semibold 
+       bg-gradient-to-r bg-clip-text font-harlow  text-transparent 
+       from-[#fd427a] via-purple-500 to-[#3730ff] animate-text
+       
+       ">
+        Mr. and Ms. Best Dressed
+
+</div>
+      )}
+
       <Dress products={products} setProducts={setProducts} />
       <Dress products={products2} setProducts={setProducts2} />
 
-      {/* Show button if any product is voted */}
-      {hasVoted() ?
-      (
-        /* From Uiverse.io by Itskrish01 */ 
-<button
-  className=" absolute z-50 inline-flex h-12 active:scale-95 transistion overflow-hidden rounded-lg p-[1px] focus:outline-none animate-bounce"
-
-  onClick={handleSubmit}
->
-  <span
-    className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#ca5a4c_0%,#ffc764_50%,#64a4c1_100%)]"
-  >
-  </span>
-  <span
-    className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2 undefined"
-  >
-    Submit Vote
-  </span>
-</button>
-
-      ):(
-        <h1 className="absolute z-50 font-harlow text-3xl text-center text-[#a80b39]">Mr. and Ms. Best Dressed </h1>
-      )
-      
-    
-    }
+      {hasVoted() && (
+        <button
+          className={!loading?"absolute z-50 inline-flex h-12  active:scale-95 transistion overflow-hidden rounded-lg p-[4px] focus:outline-none animate-bounce":"absolute z-50 inline-flex h-12 active:scale-95 transistion overflow-hidden rounded-lg p-[1px] focus:outline-none animate-bounce pointer-events-none"}
+          onClick={handleSubmit}
+        >
+          <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#ca5a4c_0%,#ffc764_50%,#64a4c1_100%)]">
+          </span>
+          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2 undefined">
+          {!loading?"Submit Vote":"Sending Vote"}
+          <LoaderIcon className={loading?" w-4 h-4 animate-spin ":" hidden w-4 h-4 animate-spin"}/>
+          </span>
+        </button>
+      )}
     </div>
   );
-}
+};
 
 export default DressPage;

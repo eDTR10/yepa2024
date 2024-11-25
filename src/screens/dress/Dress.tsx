@@ -141,18 +141,18 @@ export default function DressCarousel({ products, setProducts }: {
       >
         <Card
           className={cn(
-            'w-[200px] h-[300px] cursor-grab active:cursor-grabbing shadow-lg transition-shadow',
+            'w-[200px] h-[300px] pb-2 cursor-grab active:cursor-grabbing shadow-lg transition-shadow',
             product.color
           )}
         >
-          <CardContent className="p-4 flex flex-col items-center justify-between h-full text-white">
-            <div className='pointer-events-none relative flex w-full h-[82%] overflow-hidden'>
+          <CardContent className="p-2 flex flex-col items-center justify-between overflow-hidden h-full text-white">
+            <div className='pointer-events-none rounded-sm relative justify-center items-center flex w-full h-[86%] overflow-hidden'>
               <img 
                 src={import.meta.env.VITE_URL+product.image} 
                 alt={product.title}
                 className="w-full h-full rounded-sm object-cover mb-4"
               />
-              <h3 className="bg-white px-1 py-2 shadow-sm absolute bottom-0 text-md font-harlow text-[#ca5a4c] capitalize">
+              <h3 className="bg-white px-1 py-1 rounded-sm self-center shadow-sm absolute bottom-0 text-md font-harlow text-[#ca4c85] capitalize">
                 {capitalizeFirst(product.title)}
               </h3>
             </div>

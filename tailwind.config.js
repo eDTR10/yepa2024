@@ -36,6 +36,8 @@ module.exports = {
       // => @media (max-width: 639px) { ... }
   },
     extend: {
+      
+      
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -85,8 +87,19 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
-      },
+        'text': {
+                '0%, 100%': {
+                   'background-size':'200% 200%',
+                    'background-position': 'left center'
+                },
+                '50%': {
+                   'background-size':'200% 200%',
+                    'background-position': 'right center'
+                }
+      },},
+    
       animation: {
+        'text':'text 2s ease infinite',
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
