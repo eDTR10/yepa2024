@@ -97,7 +97,7 @@ const SettingsContainer = () => {
                     <button className='w-full mb-4' onClick={openPBDialog}>
                         <span className="shadow"></span>
                         <span className="edge"></span>
-                        <span className="front font-harlow"> Add Contestant </span>
+                        <span className="front font-harlow"> Add Participant </span>
                     </button>
                     <table className='w-full border-collapse border border-[#ff6347] text-[#333]'>
                         <thead>
