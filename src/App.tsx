@@ -11,16 +11,18 @@ import NavLink from "./components/link/link";
 
 function App() {
 
+  const name = localStorage.getItem("name")
+  console.log(name)
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-     <div className=" bg-background min-h-screen w-full overflow-hidden flex flex-col  items-center">
-      
-      <nav className=" animate__animated animate__slideInDown  z-20  fixed flex justify-between w-full max-w-[1468px]  border-b-[0px] border-accent  ">
-        <Link className="" to="/yepa2024" >
-          <img src={viteLogo} className="logo w-44 object-contain " alt="Vite logo" />
-        </Link>
-        {/* <nav className=" text-accent-foreground flex gap-10 uppercase items-center">
+      <div className=" bg-background min-h-screen w-full overflow-hidden flex flex-col  items-center">
+
+        <nav className=" animate__animated animate__slideInDown z-20 fixed flex justify-between w-full max-w-[1468px]  border-b-[0px] border-accent  ">
+          <Link className="" to="/yepa2024" >
+            <img src={viteLogo} className="logo w-44 object-contain " alt="Vite logo" />
+          </Link>
+          {/* <nav className=" text-accent-foreground flex gap-10 uppercase items-center">
         <NavLink
         to="/yepa2024/page1"
         text="HOME"
@@ -47,20 +49,20 @@ function App() {
         </div>
         
         </nav> */}
-        <div className=" mr-5 top-0 mt-10">
+          <div className=" mr-5 top-0 mt-10">
 
-          <ModeToggle/>
-        </div>
-        
-       
-      </nav>
- 
+            <ModeToggle />
+          </div>
 
-      
 
-      <Outlet />
-     
-    </div>
+        </nav>
+
+
+
+
+        <Outlet />
+
+      </div>
     </ThemeProvider>
   )
 }
