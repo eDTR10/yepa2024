@@ -152,7 +152,7 @@ export default function DressCarousel({ products, setProducts }: {
                 alt={product.title}
                 className="w-full h-full rounded-sm object-cover mb-4"
               />
-              <h3 className="bg-white px-1 py-1 rounded-sm self-center shadow-sm absolute bottom-0 text-md font-harlow text-[#ca4c85] capitalize">
+              <h3 className="bg-white px-1 py-1  rounded-sm self-center shadow-sm absolute bottom-0 text-md font-harlow text-[#ca4c85] capitalize">
                 {capitalizeFirst(product.title)}
               </h3>
             </div>

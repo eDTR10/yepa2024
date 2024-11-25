@@ -35,10 +35,11 @@ export default function Dress2({products}:any) {
                         <img 
                     src={import.meta.env.VITE_URL+product.image} 
                     alt={product.title}
+                    
                     className="w-full h-full rounded-sm object-cover mb-4"
                   />
 
-                  <h3 className=" bg-white px-1 py-2 rounded-sm mb-2 shadow-sm absolute bottom-0 text-md font-harlow text-[#ca5a4c] capitalize">{ capitalizeFirst(product.title )}</h3>
+                  <h3 className=" bg-white px-1 py-2 sm:py-1 sm:pb-0 rounded-sm mb-2 shadow-sm absolute bottom-0 text-md font-harlow text-[#ca5a4c] capitalize ">{ capitalizeFirst(product.title )}</h3>
                     </div>
                   
                   
