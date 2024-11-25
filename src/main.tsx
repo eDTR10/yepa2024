@@ -2,11 +2,12 @@ import ReactDOM from 'react-dom/client'
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import './index.css'
-import { Suspense, lazy } from "react";
+import React, { Suspense, lazy } from "react";
 
 import NotFound from "./screens/notFound";
 import Loader from './components/loader/loader.tsx';
-import { ErrorBoundary } from './Error.tsx';
+import YEPALoader from './Error.tsx';
+
 
 
 
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
   {
     path: "/yepa2024/vote",
     element: <MainDress  />,
-    errorElement: <ErrorBoundary />,
+    errorElement: <YEPALoader />,
     children: [
       {
         path: "/yepa2024/vote",
@@ -92,5 +93,7 @@ function wait( time:number) {
   });
 }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />
+ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode>
+  <RouterProvider router={router} />
+</React.StrictMode>,
 )

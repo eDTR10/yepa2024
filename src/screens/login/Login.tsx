@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import './style.css'
 
 import viteLogo from "/yepa.png";
-// import FireworksDisplay from './FireWorks';
+import FireworksDisplay from './FireWorks';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 function Login() {
@@ -16,6 +16,7 @@ function Login() {
       if (validNames.some((name) => data.toLowerCase().includes(name))) {
        
       } else {
+        console.log("runn")
         navigate("/yepa2024/vote")
       }
        
@@ -27,7 +28,7 @@ function Login() {
   return (
     
     <div className=' mains w-screen h-screen overflow-hidden relative  flex items-center justify-center'>
-
+        <FireworksDisplay />
         <div className=' sunburst-bg w-screen h-screen flex items-center  absolute z-[-1]'>
    
         </div>
