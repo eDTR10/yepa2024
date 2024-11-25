@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Dress from './Dress';
 import './card.css';
@@ -28,7 +28,8 @@ interface VotePayload {
 }
 
 const DressPage = () => {
-  const [loading,setLoading] = useState(false)
+  const [isPending, startTransition] = useTransition();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [products2, setProducts2] = useState<Product[]>([]);
@@ -37,7 +38,6 @@ const DressPage = () => {
 
   const DEFAULT_IMAGE = "/media/photos/DICT_Sub-brandLogo_for_dark_backgrounds.png";
 
-  // Transform contestant data to product format
   const transformContestantData = (contestants: Contestant[], eventType: number): Product[] => {
     return contestants.map(item => ({
       id: item.uid,
@@ -50,47 +50,60 @@ const DressPage = () => {
     }));
   };
 
-  // Fetch contestants data
-  const fetchContestants = async () => {
+  const fetchContestants = async (abortController: AbortController) => {
     try {
       setIsLoading(true);
-      const response = await axios.get("contestant/all/");
+      const response = await axios.get("contestant/all/", {
+        signal: abortController.signal
+      });
       
-      setProducts(transformContestantData(response.data.event_type_1, 1));
-      setProducts2(transformContestantData(response.data.event_type_0, 0));
-    } catch (error) {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Failed to fetch contestants",
-        showConfirmButton: false,
-        timer: 1500
+      startTransition(() => {
+        setProducts(transformContestantData(response.data.event_type_1, 1));
+        setProducts2(transformContestantData(response.data.event_type_0, 0));
       });
-      console.error('Error fetching contestants:', error);
+    } catch (error) {
+      if (!abortController.signal.aborted) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Failed to fetch contestants",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        console.error('Error fetching contestants:', error);
+      }
     } finally {
-      setIsLoading(false);
+      if (!abortController.signal.aborted) {
+        setIsLoading(false);
+      }
     }
   };
 
-  // Fetch IP address
-  const fetchIp = async () => {
+  const fetchIp = async (abortController: AbortController) => {
     try {
-      const response = await fetch('https://api.ipify.org?format=json');
-      const data = await response.json();
-      setIp(data.ip);
-    } catch (error) {
-      console.error('Error fetching IP:', error);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Failed to get IP address",
-        showConfirmButton: false,
-        timer: 1500
+      const response = await fetch('https://api.ipify.org?format=json', {
+        signal: abortController.signal
       });
+      const data = await response.json();
+      if (!abortController.signal.aborted) {
+        startTransition(() => {
+          setIp(data.ip);
+        });
+      }
+    } catch (error) {
+      if (!abortController.signal.aborted) {
+        console.error('Error fetching IP:', error);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Failed to get IP address",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
     }
   };
 
-  // Submit votes
   const submitVote = async (voteData: VotePayload[]) => {
     try {
       await axios.post('vote/all/', voteData);
@@ -104,11 +117,17 @@ const DressPage = () => {
         showConfirmButton: false,
         timer: 1500
       });
-      setLoading(false)
-      setTimeout(() => {
-        navigate("/yepa2024/vote/done");
-      }, 1000);
+      
+      setLoading(false);
+      
+      // Wrap navigation in startTransition
+      startTransition(() => {
+        setTimeout(() => {
+          navigate("/yepa2024/vote/done");
+        }, 1000);
+      });
     } catch (error) {
+      setLoading(false);
       Swal.fire({
         position: "center",
         icon: "error",
@@ -119,41 +138,48 @@ const DressPage = () => {
     }
   };
 
-  // Check authorization and fetch initial data
   useEffect(() => {
     const name = localStorage.getItem("name");
     const previousVote = localStorage.getItem("mr&ms");
 
     if (!name) {
-      navigate("/yepa2024/login");
+      startTransition(() => {
+        navigate("/yepa2024/login");
+      });
       return;
     }
 
     if (previousVote) {
-      navigate("/yepa2024/vote/done");
+      startTransition(() => {
+        navigate("/yepa2024/vote/done");
+      });
       return;
     }
 
-    fetchContestants();
-    fetchIp();
+    const abortController = new AbortController();
+    
+    fetchContestants(abortController);
+    fetchIp(abortController);
+
+    return () => {
+      abortController.abort();
+    };
   }, [navigate]);
 
-  // Get voted products
   const getVotedData = () => [
     ...products.filter(product => product.voted),
     ...products2.filter(product => product.voted)
   ];
 
-  // Check if voting is complete
   const hasVoted = () => 
     products.some(product => product.voted) && 
     products2.some(product => product.voted);
 
-  // Handle vote submission
   const handleSubmit = () => {
-    setLoading(true)
+    setLoading(true);
     const votedData = getVotedData();
     if (!votedData.length) {
+      setLoading(false);
       Swal.fire({
         position: "center",
         icon: "warning",
@@ -183,9 +209,7 @@ const DressPage = () => {
     submitVote(votePayload);
   };
 
-  
-
-  if (isLoading) {
+  if (isLoading || isPending) {
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-pink-500"></div>
@@ -196,14 +220,11 @@ const DressPage = () => {
   return (
     <div className="w-full h-full flex items-center flex-col justify-center">
       {!hasVoted() && (
-       <div className="text-3xl text-center absolute  z-[1000] font-semibold 
-       bg-gradient-to-r bg-clip-text font-harlow  text-transparent 
-       from-[#fd427a] via-purple-500 to-[#3730ff] animate-text
-       
-       ">
-        Mr. and Ms. Best Dressed
-
-</div>
+        <div className="text-3xl text-center absolute z-[1000] font-semibold 
+          bg-gradient-to-r bg-clip-text font-harlow text-transparent 
+          from-[#fd427a] via-purple-500 to-[#3730ff] animate-text">
+          Mr. and Ms. Best Dressed
+        </div>
       )}
 
       <Dress products={products} setProducts={setProducts} />
@@ -211,14 +232,16 @@ const DressPage = () => {
 
       {hasVoted() && (
         <button
-          className={!loading?"absolute z-50 inline-flex h-12  active:scale-95 transistion overflow-hidden rounded-lg p-[4px] focus:outline-none animate-bounce":"absolute z-50 inline-flex h-12 active:scale-95 transistion overflow-hidden rounded-lg p-[1px] focus:outline-none animate-bounce pointer-events-none"}
+          className={!loading 
+            ? "absolute z-50 inline-flex h-12 active:scale-95 transistion overflow-hidden rounded-lg p-[4px] focus:outline-none animate-bounce"
+            : "absolute z-50 inline-flex h-12 active:scale-95 transistion overflow-hidden rounded-lg p-[1px] focus:outline-none animate-bounce pointer-events-none"}
           onClick={handleSubmit}
         >
           <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#ca5a4c_0%,#ffc764_50%,#64a4c1_100%)]">
           </span>
           <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2 undefined">
-          {!loading?"Submit Vote":"Sending Vote"}
-          <LoaderIcon className={loading?" w-4 h-4 animate-spin ":" hidden w-4 h-4 animate-spin"}/>
+            {!loading ? "Submit Vote" : "Sending Vote"}
+            <LoaderIcon className={loading ? "w-4 h-4 animate-spin" : "hidden w-4 h-4 animate-spin"}/>
           </span>
         </button>
       )}
