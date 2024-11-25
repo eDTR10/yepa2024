@@ -3,8 +3,9 @@ import axios from '../../../plugin/axios';
 import '@/screens/login/style.css'
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import '@/screens/admin/style.css'
 
 function Ratings() {
  
@@ -54,7 +55,7 @@ function Ratings() {
                             <div className="justify-center flex-row flex-wrap flex space-x-4 xs:flex xs:flex-col xs:justify-center">
                                 {ratings?.performance_ranking?.map((rating:any, index:any) => (
                                     <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg">
-                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden'>
+                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
                                             <img src={rating.photos ? `${import.meta.env.VITE_URL}${rating.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
                                         </div>
                                         <hr />
@@ -82,7 +83,7 @@ function Ratings() {
                             <div className="justify-center flex-row flex-wrap flex space-x-4 xs:flex xs:flex-col xs:justify-center">
                                 {ratings?.male_ranking?.map((rating:any, index:any) => (
                                     <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg">
-                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden'>
+                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
                                             <img src={rating.photos ? `${import.meta.env.VITE_URL}${rating.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
                                         </div>
                                         <hr />
@@ -110,7 +111,7 @@ function Ratings() {
                             <div className="justify-center flex-row flex-wrap flex space-x-4 xs:flex xs:flex-col xs:justify-center">
                                 {ratings?.female_ranking?.map((rating:any, index:any) => (
                                     <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg">
-                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden'>
+                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
                                             <img src={rating.photos ? `${import.meta.env.VITE_URL}${rating.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
                                         </div>
                                         <hr />

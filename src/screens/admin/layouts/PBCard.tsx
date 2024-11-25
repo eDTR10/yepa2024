@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { CardFooter } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-
+import '@/screens/admin/style.css'
 
 
 const getEventType = (uid:any) => {
@@ -73,9 +73,10 @@ function PBCard() {
                             <div className="justify-center flex-row flex flex-wrap space-x-4 xs:flex xs:flex-col xs:justify-center">
                                 {events?.event_type_2?.map((event:any, index:any) => (
                                     <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg ">
-                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden'>
+                                        <div className='w-full h-[150px] flex justify-center items-center zoom-container'>
                                             <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
                                         </div>
+
                                         <hr />
                                         <CardFooter>
                                             <p className="text-2xl text-center font-harlow">Team Name: 
@@ -96,7 +97,7 @@ function PBCard() {
                             <div className="justify-center flex-row flex flex-wrap space-x-4 xs:flex xs:flex-col xs:justify-center">
                                 {events?.event_type_0?.map((event:any, index:any) => (
                                     <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg">
-                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden'>
+                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
                                             <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
                                         </div>
                                         <hr />
@@ -119,7 +120,7 @@ function PBCard() {
                             <div className="justify-center flex-row flex-wrap flex space-x-4 xs:flex xs:flex-col xs:justify-center">
                                 {events?.event_type_1?.map((event:any, index:any) => (
                                     <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg xs:justify-center">
-                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden'>
+                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
                                             <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
                                         </div>
                                         <hr />

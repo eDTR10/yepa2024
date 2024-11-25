@@ -29,14 +29,15 @@ function Dashboard() {
                                 <button className='w-[20%] xs:w-[50%]' onClick={navigateToParticipants}>
                                     <span className="shadow"></span>
                                     <span className="edge"></span>
-                                    <span className="front font-harlow">Participants</span>
+                                    <span className="front font-harlow">View Participants</span>
                                 </button>
 
-                                <button className=' w-[20%] xs:w-[50%] ' onClick={navigateToRatings}>
+                               
+
+                                <button className='w-[20%] xs:w-[60%]' onClick={navigateToRatings}>
                                     <span className="shadow"></span>
-                                    <span className="edge"></span>
-                                    <span className="front  font-harlow "> Ratings
-                                    </span>
+                                    <span className="edge xs:h-[100px]"></span>
+                                    <span className="front font-harlow x">View Ratings for Participants</span>
                                 </button>
                             </div>
                         
