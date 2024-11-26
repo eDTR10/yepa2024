@@ -26,7 +26,7 @@ function Dashboard() {
                         </TabsList>
                         <TabsContent value="dashboard" className="w-full h-[calc(100vh-4rem)] xs:justify-center">
                             <div className="mt-48 justify-center flex-row flex space-x-4 xs:flex xs:flex-row ">
-                                <button className='w-[20%] xs:w-[50%]' onClick={navigateToParticipants}>
+                                <button className='w-[20%] xs:w-[100%]' onClick={navigateToParticipants}>
                                     <span className="shadow"></span>
                                     <span className="edge"></span>
                                     <span className="front font-harlow">View All Participants</span>
@@ -37,10 +37,6 @@ function Dashboard() {
                                     <span className="front font-harlow x">View Ratings for Participants</span>
                                 </button>
                             </div>
-                        
-                            {/* <div className="w-full p-4">
-                                <DashboardContainer />
-                            </div> */}
                         </TabsContent>
                         <TabsContent value="settings" className="overflow-scroll pb-12 w-full h-[calc(100vh-4rem)] ">
                             <div className="w-full p-4">

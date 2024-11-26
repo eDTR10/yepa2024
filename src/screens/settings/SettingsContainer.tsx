@@ -45,10 +45,6 @@ const SettingsContainer = () => {
             })
 
 
-
-            
-
-            // Refresh the list of contestants after deletion
             fetchContestants();
 
         } catch (error: any) {

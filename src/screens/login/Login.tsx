@@ -46,7 +46,7 @@ function Login() {
             setuser("")
           } else {
             console.log(user)
-            if (user === "admin") {
+            if (user === "ryan") {
               Swal.fire({
                 position: "center",
                 icon: "success",

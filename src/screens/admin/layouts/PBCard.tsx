@@ -20,7 +20,7 @@ function PBCard() {
     function getEvent() {
         const userName = localStorage.getItem('name');
         
-        if (userName !== 'Ryan') {
+        if (userName !== 'ryan') {
             navigate("/yepa2024/login")
             return;
         }
@@ -47,75 +47,75 @@ function PBCard() {
                     <TabsTrigger value="ms." className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Ms. Dress</TabsTrigger>
                 </TabsList>
                 <TabsContent value="pb" className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] xs:w-full justify-center' onClick={backtoNavigateToParticipants}>
-                                <span className="shadow"></span>
-                                <span className="edge"></span>
-                                <span className="front  font-harlow "> Back to dashboard
-                                </span>
-                            </button>
-                            <div className="justify-center flex-row flex-wrap flex gap-4">
-                                {events?.event_type_2?.map((event:any, index:any) => (
-                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] overflow-auto bg-[#f5f5dc] shadow-lg ">
-                                        <div className='w-full h-[150px] flex justify-center items-center zoom-container'>
-                                            <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
-                                        </div>
+                    <button className='mt-10 mb-10 w-[20%] xs:w-full justify-center' onClick={backtoNavigateToParticipants}>
+                        <span className="shadow"></span>
+                        <span className="edge"></span>
+                        <span className="front  font-harlow "> Back to dashboard
+                        </span>
+                    </button>
+                    <div className="justify-center flex-row flex-wrap flex gap-4">
+                        {events?.event_type_2?.map((event:any, index:any) => (
+                            <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] overflow-auto bg-[#f5f5dc] shadow-lg ">
+                                <div className='w-full h-[150px] flex justify-center items-center zoom-container'>
+                                    <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
+                                </div>
 
-                                        <hr />
-                                        <CardFooter>
-                                            <p className="text-2xl text-center font-harlow">Team Name: 
-                                                <Badge className="bg-[#ffc764] text-black text-xl font-bold me-3 animate-bounce">{event.name || "Unknown name"}</Badge></p>
-                                        </CardFooter>
-                                    </div>
-                                ))} 
-
+                                <hr />
+                                <CardFooter>
+                                    <p className="text-2xl text-center font-harlow">Team Name: 
+                                        <Badge className="bg-[#ffc764] text-black text-xl font-bold me-3 animate-bounce">{event.name || "Unknown name"}</Badge></p>
+                                </CardFooter>
                             </div>
-                        </TabsContent>
-                        <TabsContent value="mr." className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] xs:w-full  justify-center' onClick={backtoNavigateToParticipants}>
-                                <span className="shadow"></span>
-                                <span className="edge"></span>
-                                <span className="front  font-harlow "> Back to dashboard
-                                </span>
-                            </button>
-                            <div className="justify-center flex-row flex-wrap flex gap-4">
-                                {events?.event_type_0?.map((event:any, index:any) => (
-                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] verflow-auto bg-[#f5f5dc] shadow-lg">
-                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
-                                            <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
-                                        </div>
-                                        <hr />
-                                        <CardFooter className='justify-center'>
-                                            <p className="text-2xl font-harlow">Name: 
-                                            <br /> <Badge className="bg-[#ffc764] text-black text-xl font-bold me-3 animate-bounce">{event.name || "Unknown name"}</Badge></p>
-                                        </CardFooter>
-                                    </div>
-                                )) }
+                        ))} 
 
+                    </div>
+                </TabsContent>
+                <TabsContent value="mr." className="w-full h-[calc(100vh-4rem)] ">
+                    <button className='mt-10 mb-10 w-[20%] xs:w-full  justify-center' onClick={backtoNavigateToParticipants}>
+                        <span className="shadow"></span>
+                        <span className="edge"></span>
+                        <span className="front  font-harlow "> Back to dashboard
+                        </span>
+                    </button>
+                    <div className="justify-center flex-row flex-wrap flex gap-4">
+                        {events?.event_type_0?.map((event:any, index:any) => (
+                            <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] verflow-auto bg-[#f5f5dc] shadow-lg">
+                                <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
+                                    <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
+                                </div>
+                                <hr />
+                                <CardFooter className='justify-center'>
+                                    <p className="text-2xl font-harlow">Name: 
+                                    <br /> <Badge className="bg-[#ffc764] text-black text-xl font-bold me-3 animate-bounce">{event.name || "Unknown name"}</Badge></p>
+                                </CardFooter>
                             </div>
-                        </TabsContent>
-                        <TabsContent value="ms." className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] xs:w-full justify-center' onClick={backtoNavigateToParticipants}>
-                                <span className="shadow"></span>
-                                <span className="edge"></span>
-                                <span className="front  font-harlow "> Back to dashboard
-                                </span>
-                            </button>
-                            <div className="justify-center flex-row flex-wrap flex gap-4">
-                                {events?.event_type_1?.map((event:any, index:any) => (
-                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] overflow-auto bg-[#f5f5dc] shadow-lg xs:justify-center">
-                                        <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
-                                            <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
-                                        </div>
-                                        <hr />
-                                        <CardFooter className='justify-center'>
-                                            <p className="text-2xl text-center font-harlow">Name: 
-                                                <Badge className="bg-[#ffc764] text-black text-xl font-bold me-3 animate-bounce">{event.name || "Unknown name"}</Badge></p>
-                                        </CardFooter>
-                                    </div>
-                                ))} 
+                        )) }
 
+                    </div>
+                </TabsContent>
+                <TabsContent value="ms." className="w-full h-[calc(100vh-4rem)] ">
+                    <button className='mt-10 mb-10 w-[20%] xs:w-full justify-center' onClick={backtoNavigateToParticipants}>
+                        <span className="shadow"></span>
+                        <span className="edge"></span>
+                        <span className="front  font-harlow "> Back to dashboard
+                        </span>
+                    </button>
+                    <div className="justify-center flex-row flex-wrap flex gap-4">
+                        {events?.event_type_1?.map((event:any, index:any) => (
+                            <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] overflow-auto bg-[#f5f5dc] shadow-lg xs:justify-center">
+                                <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
+                                    <img src={event.photos ? `${import.meta.env.VITE_URL}${event.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
+                                </div>
+                                <hr />
+                                <CardFooter className='justify-center'>
+                                    <p className="text-2xl text-center font-harlow">Name: 
+                                        <Badge className="bg-[#ffc764] text-black text-xl font-bold me-3 animate-bounce">{event.name || "Unknown name"}</Badge></p>
+                                </CardFooter>
                             </div>
-                        </TabsContent>
+                        ))} 
+
+                    </div>
+                </TabsContent>
             </Tabs>
         </div>
     
