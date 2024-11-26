@@ -15,19 +15,22 @@ function Login() {
   useEffect( () => {
     const data = localStorage.getItem("name");
     
-    getFingerprint().then((e:any)=>{
-      localStorage.setItem('ip',e)
-    })
+    
 
     if (data) {
+      
 
       if (validNames.some((name) => data.toLowerCase().includes(name))) {
-
+        navigate("/yepa2024/chosen-category")
       } else {
         console.log("runn")
         navigate("/yepa2024/vote")
       }
 
+    }else{
+      getFingerprint().then((e:any)=>{
+        localStorage.setItem('ip',e)
+      })
     }
   }, []);
 

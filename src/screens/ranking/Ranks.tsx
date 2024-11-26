@@ -52,11 +52,28 @@ function Rankings() {
         }
     ]
 })
-  useEffect(()=>{
-    axios.get('vote/all').then((e:any)=>{
-      setrankingData(e.data)
-    })
-  },[])
+
+
+const fetchVotes = async () => {
+  try {
+    const response = await axios.get("vote/all");
+    setrankingData(response.data);
+  } catch (error) {
+    console.error("Error fetching votes:", error);
+  }
+};
+useEffect(() => {
+  // Initial fetch
+  fetchVotes();
+
+  // Set up periodic updates
+  const intervalId = setInterval(() => {
+    fetchVotes();
+  }, 5000);
+
+  // Cleanup on component unmount
+  return () => clearInterval(intervalId);
+}, []); // Empty dependency array ensures this runs once
   return (
     <div className="min-h-screen bg-gradient-to-b 
     from-[#dff5f6] to-[#ffffff] py-12 px-4 sm:px-6 lg:px-8">

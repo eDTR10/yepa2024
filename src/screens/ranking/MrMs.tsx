@@ -33,7 +33,7 @@ export const CombinedRankingCard = ({ title, maleData, femaleData, icon: Icon }:
             className="flex items-center md:flex-row-reverse gap-4 mb-4 last:mb-0 p-3 rounded-lg hover:bg-gray-50 justify-end transition-colors"
           >
             <div className="flex flex-col items-end md:items-start ">
-              <h3 className="font-semibold text-gray-800">{item.name}</h3>
+              <h3 className="font-semibold text-gray-800 capitalize">{item.name}</h3>
               <div className="flex  gap-2 text-sm text-gray-600 items-end ">
                 <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">
                   {item.total_votes} votes
@@ -72,7 +72,7 @@ export const CombinedRankingCard = ({ title, maleData, femaleData, icon: Icon }:
               </span>
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-800">{item.name}</h3>
+              <h3 className="font-semibold text-gray-800 capitalize">{item.name}</h3>
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
                   {item.total_votes} votes
