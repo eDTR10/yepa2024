@@ -33,7 +33,7 @@ const DressPage = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [products2, setProducts2] = useState<Product[]>([]);
-  const [ip, setIp] = useState<string>('');
+  const [ip, _setIp] = useState<any>(localStorage.getItem("ip")?localStorage.getItem("ip"):"");
   const [isLoading, setIsLoading] = useState(true);
 
   const DEFAULT_IMAGE = "/media/photos/DICT_Sub-brandLogo_for_dark_backgrounds.png";
@@ -79,30 +79,7 @@ const DressPage = () => {
     }
   };
 
-  const fetchIp = async (abortController: AbortController) => {
-    try {
-      const response = await fetch('https://api.ipify.org?format=json', {
-        signal: abortController.signal
-      });
-      const data = await response.json();
-      if (!abortController.signal.aborted) {
-        startTransition(() => {
-          setIp(data.ip);
-        });
-      }
-    } catch (error) {
-      if (!abortController.signal.aborted) {
-        console.error('Error fetching IP:', error);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "Failed to get IP address",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
-    }
-  };
+ 
 
   const submitVote = async (voteData: VotePayload[]) => {
     try {
@@ -141,6 +118,8 @@ const DressPage = () => {
   useEffect(() => {
     const name = localStorage.getItem("name");
     const previousVote = localStorage.getItem("mr&ms");
+ 
+
 
     if (!name) {
       startTransition(() => {
@@ -159,7 +138,7 @@ const DressPage = () => {
     const abortController = new AbortController();
     
     fetchContestants(abortController);
-    fetchIp(abortController);
+
 
     return () => {
       abortController.abort();

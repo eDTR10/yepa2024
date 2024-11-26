@@ -5,11 +5,19 @@ import './style.css'
 import viteLogo from "/yepa.png";
 import FireworksDisplay from './FireWorks';
 import Swal from 'sweetalert2';
+import { getFingerprint } from '@thumbmarkjs/thumbmarkjs'
 import { useNavigate } from 'react-router-dom';
+
 function Login() {
+  
+
   const validNames = ["sittie", "eugene", "lourdes", "alawi", "raposala", "batoon"];
-  useEffect(() => {
+  useEffect( () => {
     const data = localStorage.getItem("name");
+    
+    getFingerprint().then((e:any)=>{
+      localStorage.setItem('ip',e)
+    })
 
     if (data) {
 

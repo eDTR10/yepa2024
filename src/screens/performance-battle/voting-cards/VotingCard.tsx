@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import axios from "@/components/plugin/axios";
 
 const VotingCard = ({  data, fetchData, moveToNextTab }: any) => {
-    const [ip, setIp] = useState<string | null>(null);
+    const [ip, _setIp] = useState<any>(localStorage.getItem("ip")?localStorage.getItem("ip"):"");
     const [_votes, setVotes] = useState<any>([]);
     const [scores, setScores] = useState({
         talent: '',
@@ -71,15 +71,6 @@ const VotingCard = ({  data, fetchData, moveToNextTab }: any) => {
         setIsDialogOpen(false); // Hide the dialog
     };
 
-    const fetchIp = async () => {
-        try {
-            const response = await fetch('https://api.ipify.org?format=json');
-            const data = await response.json();
-            setIp(data.ip);
-        } catch (error) {
-            console.error('Error fetching IP:', error);
-        }
-    };
 
     // Call fetchIp on component mount
 
@@ -89,9 +80,9 @@ const VotingCard = ({  data, fetchData, moveToNextTab }: any) => {
         const scoresArray = [scores.talent, scores.creativity, scores.stagePresence, scores.relevanceToICT, scores.timeAdherence].map(Number);
 
         const formData = [{
-            ip: ip || '',
+            ip: ip|| '',
             voted_to: data?.uid,
-            name: 'Sittie',
+            name: localStorage.getItem('name'),
             score: scoresArray,
             event_type: 2
         }];
@@ -128,7 +119,6 @@ const VotingCard = ({  data, fetchData, moveToNextTab }: any) => {
 
 
     useEffect(() => {
-        fetchIp();
         // Load scores from local storage if they exist
         const savedScores = localStorage.getItem(`scores_${data?.name}`);
         if (savedScores) {

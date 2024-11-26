@@ -49,6 +49,9 @@ const Dashboard = lazy(() =>
 // const PBCards = lazy(() =>
 //   wait(1300).then(() => import("./screens/admin/layouts/PBCard.tsx"))
 // );
+const Rankings= lazy(() =>
+  wait(1300).then(() => import("./screens/ranking/Ranks.tsx"))
+);
 
 
 
@@ -65,6 +68,14 @@ const router = createBrowserRouter([
     element: <>
       <Suspense fallback={<Loader />}>
         <Login />
+      </Suspense>
+    </>,
+  },
+  {
+    path: "/yepa2024/rank-board",
+    element: <>
+      <Suspense fallback={<Loader />}>
+        <Rankings />
       </Suspense>
     </>,
   },
