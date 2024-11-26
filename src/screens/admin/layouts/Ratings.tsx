@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import '@/screens/admin/style.css'
 
+
 function Ratings() {
  
     const [ratings, setRatings] = useState<any>([]);
@@ -37,22 +38,22 @@ function Ratings() {
     }, []);
   return (
     <>
-     <div className='w-screen flex items-start justify-center overflow-y-auto'>
-                <div className="flex-1 flex flex-col items-center z-0">
-                    <Tabs defaultValue="pb" className="w-full p-10 z-40">
-                        <TabsList className="flex justify-center w-full sticky top-0 ">
-                            <TabsTrigger value="pb" className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Performance Ranking</TabsTrigger>
-                            <TabsTrigger value="mr." className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Male Ranking</TabsTrigger>
-                            <TabsTrigger value="ms." className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Female Ranking</TabsTrigger>
-                        </TabsList>
-                        <TabsContent value="pb" className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] xs:w-[100%] justify-start' onClick={backToDashboard}>
+
+        <div className="flex-1 flex flex-col mt-36">
+            <Tabs defaultValue="pb" className="w-full p-10 z-30 xs:w-[100%]">
+                <TabsList className="flex justify-center w-full sticky top-0 ">
+                    <TabsTrigger value="pb" className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Performance Ranking</TabsTrigger>
+                    <TabsTrigger value="mr." className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Male Ranking</TabsTrigger>
+                    <TabsTrigger value="ms." className="flex-1 text-center font-harlow border-[8px] border-[#ca5a4c] data-[state=active]:bg-[#ffc764]">Female Ranking</TabsTrigger>
+                </TabsList>
+                <TabsContent value="pb" className="w-full h-[calc(100vh-4rem)] ">
+                            <button className='mt-10 mb-10 w-[20%] xs:w-[80%] xs:ml-10 justify-center' onClick={backToDashboard}>
                                 <span className="shadow"></span>
                                 <span className="edge"></span>
                                 <span className="front  font-harlow "> Back to dashboard
                                 </span>
                             </button>
-                            <div className="justify-center flex-row flex-wrap flex space-x-4 xs:flex xs:flex-col xs:justify-center">
+                            <div className="justify-center flex-row flex-wrap flex gap-4">
                                 {ratings?.performance_ranking?.map((rating:any, index:any) => (
                                     <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg">
                                         <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
@@ -74,15 +75,15 @@ function Ratings() {
                             </div>
                         </TabsContent>
                         <TabsContent value="mr." className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] xs:w-[100%] justify-start' onClick={backToDashboard}>
+                            <button className='mt-10 mb-10 w-[20%] xs:w-[80%] xs:ml-10' onClick={backToDashboard}>
                                 <span className="shadow"></span>
                                 <span className="edge"></span>
                                 <span className="front  font-harlow "> Back to dashboard
                                 </span>
                             </button>
-                            <div className="justify-center flex-row flex-wrap flex space-x-4 xs:flex xs:flex-col xs:justify-center">
+                            <div className="justify-center flex-row flex-wrap flex gap-4">
                                 {ratings?.male_ranking?.map((rating:any, index:any) => (
-                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg">
+                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] overflow-auto bg-[#f5f5dc] shadow-lg">
                                         <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
                                             <img src={rating.photos ? `${import.meta.env.VITE_URL}${rating.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
                                         </div>
@@ -102,15 +103,15 @@ function Ratings() {
                             </div>
                         </TabsContent>
                         <TabsContent value="ms." className="w-full h-[calc(100vh-4rem)] ">
-                            <button className='mt-10 mb-10 w-[20%] xs:w-[100%] justify-start' onClick={backToDashboard}>
+                            <button className='mt-10 mb-10 w-[20%] xs:w-[80%] xs:ml-10' onClick={backToDashboard}>
                                 <span className="shadow"></span>
                                 <span className="edge"></span>
                                 <span className="front  font-harlow "> Back to dashboard
                                 </span>
                             </button>
-                            <div className="justify-center flex-row flex-wrap flex space-x-4 xs:flex xs:flex-col xs:justify-center">
+                            <div className="justify-center flex-row flex-wrap flex gap-4">
                                 {ratings?.female_ranking?.map((rating:any, index:any) => (
-                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] p-2 overflow-auto bg-[#f5f5dc] shadow-lg">
+                                    <div key={index} className="rounded-lg w-[280px] mb-12 border-4 border-[#ff6347] overflow-auto bg-[#f5f5dc] shadow-lg">
                                         <div className='w-full h-[150px] flex justify-center items-center overflow-hidden zoom-container'>
                                             <img src={rating.photos ? `${import.meta.env.VITE_URL}${rating.photos}` : 'https://github.com/shadcn.png'} alt="@shadcn" className='object-cover h-full' />
                                         </div>
@@ -128,9 +129,10 @@ function Ratings() {
                                 ))}
                             </div>
                         </TabsContent>
-                    </Tabs>
-                </div>
-            </div></>
+            </Tabs>
+        </div>
+
+            </>
    
 
   )
