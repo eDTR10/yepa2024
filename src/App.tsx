@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@/components/theme-provider"
 
-import viteLogo from "/yepa2.png";
+import viteLogo from "/yepa2.webp";
 
 import { Link, Outlet } from "react-router-dom";
 

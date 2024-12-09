@@ -22,7 +22,7 @@ function SubmittedDressPage() {
 
   useEffect(() => {
     const data = localStorage.getItem("mr&ms");
-  
+
     if (data) {
       try {
         const parsedData = JSON.parse(data);
@@ -32,31 +32,31 @@ function SubmittedDressPage() {
         console.error("Error parsing localStorage data:", error);
       }
     } else {
-        navigate("/yepa2024")
+      navigate("/yepa2024")
     }
   }, []);
-  
-  
 
-  useEffect(()=>{
+
+
+  useEffect(() => {
     console.log(products, "asdasd")
-},[products])
-    let navigate = useNavigate()
+  }, [products])
+  let navigate = useNavigate()
   return (
     <div className="w-full h-full flex items-center flex-col justify-center">
       <div className=" bubbling-heart absolute h-screen w-screen  z-[60]  ">
-      <div><i className="fa fa-heart fa-5x"></i></div>
-      <div><i className="fa fa-heart fa-5x"></i></div>
-      <div><i className="fa fa-heart fa-5x"></i></div>
-      <div><i className="fa fa-heart fa-5x"></i></div>
-    </div>
-        <Button className=" absolute top-0 right-0 z-[100]" onClick={()=>{
+        <div><i className="fa fa-heart fa-5x"></i></div>
+        <div><i className="fa fa-heart fa-5x"></i></div>
+        <div><i className="fa fa-heart fa-5x"></i></div>
+        <div><i className="fa fa-heart fa-5x"></i></div>
+      </div>
+      {/* <Button className=" absolute top-0 right-0 z-[100]" onClick={()=>{
            
             navigate("/yepa2024")
             localStorage.clear()
-        }}>clear</Button>
+        }}>clear</Button> */}
       <Dress2 products={products} setProducts={setProducts} />
-     
+
     </div>
   );
 }

@@ -2,23 +2,23 @@
 import { useEffect, useState } from 'react';
 import './style.css'
 
-import viteLogo from "/yepa.png";
+import viteLogo from "/yepa.webp";
 import FireworksDisplay from './FireWorks';
 import Swal from 'sweetalert2';
 import { getFingerprint } from '@thumbmarkjs/thumbmarkjs'
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  
+
 
   const validNames = ["sittie", "eugene", "lourdes", "alawi", "raposala", "batoon"];
-  useEffect( () => {
+  useEffect(() => {
     const data = localStorage.getItem("name");
-    
-    
+
+
 
     if (data) {
-      
+
 
       if (validNames.some((name) => data.toLowerCase().includes(name))) {
         navigate("/yepa2024/chosen-category")
@@ -27,9 +27,9 @@ function Login() {
         navigate("/yepa2024/vote")
       }
 
-    }else{
-      getFingerprint().then((e:any)=>{
-        localStorage.setItem('ip',e)
+    } else {
+      getFingerprint().then((e: any) => {
+        localStorage.setItem('ip', e)
       })
     }
   }, []);
