@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "./card.css";
 
 import Dress2 from "./Dress2";
-import { Button } from "@/components/ui/button";
+
 import { useNavigate } from 'react-router-dom';
 import './heart.css'
 interface Product {

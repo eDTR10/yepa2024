@@ -39,7 +39,7 @@ function MainDress() {
       <div className=" bg-background min-h-screen w-full overflow-hidden flex flex-col  items-center">
         <Button onClick={() => {
           navigate("/yepa2024/vote/performance-battle")
-        }} className=" absolute z-[999] right-0 top-0 mr-5 mt-10 text-[#ca5a4c] bg-[#ffdc73] font-harlow hover:bg-[#ca5a4c]/50"><MoveRight /> Switch to Performance Battle</Button>
+        }} className={show ? " absolute z-[999] right-0 top-0 mr-5 mt-10 text-[#ca5a4c] bg-[#ffdc73] font-harlow hover:bg-[#ca5a4c]/50" : " hidden"}><MoveRight /> Switch to Performance Battle</Button>
         <div className=' sunburst-bg w-screen h-screen flex items-center  absolute z-[1]'>
 
         </div>
