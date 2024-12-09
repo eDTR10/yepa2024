@@ -10,6 +10,7 @@ import {
 import VotingCard from './voting-cards/VotingCard';
 import '@/screens/login/style.css'
 import axios from "@/components/plugin/axios";
+import { Button } from '@/components/ui/button';
 // import { useNavigate } from 'react-router-dom';
 
 const PerformanceBattleContainer = () => {
@@ -66,9 +67,12 @@ const PerformanceBattleContainer = () => {
     };
 
     return (
-        <div className='mains w-screen h-screen flex items-start justify-center overflow-y-auto'>
+        <div className='mains w-screen h-screen flex items-start justify-center overflow-y-auto'> 
+    
             <div className='sunburst-bg w-screen h-screen flex items-center absolute z-0' />
-
+            <div className=' z-40 absolute'>
+                          
+                </div> 
             <div className='w-[90%] z-30 flex items-center justify-center mt-[200px] mx-4 sm:mx-12 '>
 
                 {contestants.length > 0 && (
